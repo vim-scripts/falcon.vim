@@ -56,6 +56,7 @@ syn keyword falconBool true false nill
 syntax match falconCommentSkip contained "^\s*\*\($\|\s\+\)"
 syntax region falconComment start="/\*" end="\*/" contains=@falconCommentGroup,falconSpaceError
 syntax region falconCommentL start="//" end="$" keepend contains=@falconCommentGroup,falconSpaceError
+syn match falconSharpBang     "\%^#!.*" display
 
 syn sync ccomment falconComment
 
@@ -95,6 +96,7 @@ if version >= 600 || !exists("did_falcon_syn_inits")
   HiLink falconFloatLiteral     Number
   HiLink falconString           String
   HiLink falconBool		Constant
+  HiLink falconSharpBang        PreProc
 
   delcommand HiLink
 endif
