@@ -1,0 +1,11 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2745
+
+This is a syntax highlighting file for the Falcon programming language. It's based heavily off of the PLSQL and Ruby programming language files. 
+
+See also:
+Indent:    vimscript #2752
+Ftplugin: vimscript #2762 
+Ftdetect: vimscript #2763
+
+For the latest version check my github site:
+http://github.com/steveno/falconpl-vim
