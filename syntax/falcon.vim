@@ -1,7 +1,8 @@
 " Vim syntax file
 " Language: Falcon
 " Maintainer: Steven Oliver <oliver.steven@gmail.com>
-" Website: 
+" Website: http://github.com/steveno/vim-files/blob/master/syntax/falcon.vim
+
 if version < 600
   syntax clear
 elseif exists("b:current_syntax")
@@ -40,6 +41,14 @@ syn keyword falconKeyword enum try class object
 syn keyword falconKeyword exit launch len
 syn keyword falconKeyword print printl provides
 
+" Other keywords
+syn keyword falconKeyword and or not in notin to as has hasnt provides
+syn keyword falconKeyword Error TraceStep SyntaxError CodeError 
+syn keyword falconKeyword RangeError MathError IoError TypeError
+syn keyword falconKeyword ParamError CloneError InterruprtedError
+syn keyword falconKeyword List all any allp anyp eval choice xamp
+syn keyword falconKeyword iff list cascade dolist eq
+
 " Conditionals.
 syn keyword falconConditional if elif else end
 syn keyword falconConditional switch select case default
@@ -50,13 +59,13 @@ syn keyword falconRepeat loop while for
 syn keyword falconRepeat forlast formiddle forfirst
 
 " Booleans
-syn keyword falconBool true false nill
+syn keyword falconBool true false nil
 
 " Comments.
 syntax match falconCommentSkip contained "^\s*\*\($\|\s\+\)"
 syntax region falconComment start="/\*" end="\*/" contains=@falconCommentGroup,falconSpaceError
 syntax region falconCommentL start="//" end="$" keepend contains=@falconCommentGroup,falconSpaceError
-syn match falconSharpBang     "\%^#!.*" display
+syn match falconSharpBang "\%^#!.*" display
 
 syn sync ccomment falconComment
 
@@ -102,5 +111,3 @@ if version >= 600 || !exists("did_falcon_syn_inits")
 endif
 
 let b:current_syntax = "falcon"
-
-
