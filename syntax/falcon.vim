@@ -1,15 +1,9 @@
 " Vim syntax file
-" Language: Falcon
-" Maintainer: Steven Oliver <oliver.steven@gmail.com>
-" Website: http://github.com/steveno/vim-files/blob/master/syntax/falcon.vim
-" ---------------------------------------------------------------------------
-" Thanks the ruby.vim authors, I borrowed a lot!
-
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
-  finish
-endif
+" Language:     Falcon
+" Maintainer:   Steven Oliver <oliver.steven@gmail.com>
+" Website:      http://github.com/steveno/vim-files/blob/master/syntax/falcon.vim
+" Credits:      Thanks the ruby.vim authors, I borrowed a lot!
+" -------------------------------------------------------------------------------
 
 " When wanted, highlight the trailing whitespace.
 if exists("c_space_errors")
@@ -24,6 +18,7 @@ endif
 
 " Symbols.
 syn match   falconSymbol "\(;\|,\|\.\)"
+syn match   falconSymbolOther "\(#\)" display
 
 " Operators.
 syn match   falconOperator "\(+\|-\|\*\|/\|=\|<\|>\|@\|\*\*\|!=\|\~=\)"
@@ -157,6 +152,7 @@ if version >= 600 || !exists("did_falcon_syn_inits")
   HiLink falconSharpBang        PreProc
   HiLink falconInclude          Include
   HiLink falconSymbol           Constant
+  HiLink falconSymbolOther      Delimiter
 
   delcommand HiLink
 endif
