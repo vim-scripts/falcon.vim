@@ -4,85 +4,81 @@
 " Website:      http://github.com/steveno/vim-files/blob/master/syntax/falcon.vim
 " Credits:      Thanks the ruby.vim authors, I borrowed a lot!
 " -------------------------------------------------------------------------------
+" GetLatestVimScripts: 2745 1 :AutoInstall: falcon.vim
 
 " When wanted, highlight the trailing whitespace.
 if exists("c_space_errors")
-  if !exists("c_no_trail_space_error")
-    syn match falconSpaceError "\s\+$"
-  endif
-
-  if !exists("c_no_tab_space_error")
-    syn match falconSpaceError " \+\t"me=e-1
-  endif
+    if !exists("c_no_trail_space_error")
+        syn match falconSpaceError "\s\+$"
+    endif
+    
+    if !exists("c_no_tab_space_error")
+        syn match falconSpaceError " \+\t"me=e-1
+    endif
 endif
 
-" Symbols.
-syn match   falconSymbol "\(;\|,\|\.\)"
-syn match   falconSymbolOther "\(#\)" display
+" Symbols
+syn match falconSymbol "\(;\|,\|\.\)"
+syn match falconSymbolOther "\(#\|@\)" display
 
-" Operators.
-syn match   falconOperator "\(+\|-\|\*\|/\|=\|<\|>\|@\|\*\*\|!=\|\~=\)"
-syn match   falconOperator "\(<=\|>=\|=>\|\.\.\|<<\|>>\|\"\)"
+" Operators
+syn match falconOperator "\(+\|-\|\*\|/\|=\|<\|>\|\*\*\|!=\|\~=\)"
+syn match falconOperator "\(<=\|>=\|=>\|\.\.\|<<\|>>\|\"\)"
 
 " Clusters
 syn region falconSymbol start="[]})\"':]\@<!:\"" end="\"" skip="\\\\\|\\\"" contains=@falconStringSpecial fold
-
 syn case match
 
-" Keywords.
-syn keyword falconKeyword break continue dropping return launch from global
-syn keyword falconKeyword const self sender catch raise give 
-syn keyword falconKeyword pass lambda def directive load export 
-syn keyword falconKeyword function innerfunc init static attributes  
-syn keyword falconKeyword enum try class object
-syn keyword falconKeyword exit launch len
-syn keyword falconKeyword print printl provides
+" Keywords
+syn keyword falconKeyword all allp any anyp as attributes brigade cascade catch choice class const 
+syn keyword falconKeyword continue def directive do list dropping enum eq eval exit export from function 
+syn keyword falconKeyword give global has hasnt in init innerfunc lambda launch launch len List list 
+syn keyword falconKeyword load notin object pass print printl provides raise return self sender static to 
+syn keyword falconKeyword try xamp 
 
-" Todo.
-syn keyword falconTodo TODO FIXME XXX DEBUG NOTE 
+" Error Type Keywords
+syn keyword falconKeyword CloneError CodeError Error InterruprtedError IoError MathError
+syn keyword falconKeyword ParamError RangeError SyntaxError TraceStep TypeError 
 
-" Other keywords
-syn keyword falconKeyword in notin to as has hasnt provides
-syn keyword falconKeyword Error TraceStep SyntaxError CodeError 
-syn keyword falconKeyword RangeError MathError IoError TypeError
-syn keyword falconKeyword ParamError CloneError InterruprtedError
-syn keyword falconKeyword List all any allp anyp eval choice xamp
-syn keyword falconKeyword iff list cascade dolist eq
+" Todo
+syn keyword falconTodo DEBUG FIXME NOTE TODO XXX
 
-" Conditionals.
-syn keyword falconConditional if elif else end and or not
-syn keyword falconConditional switch select case default
+" Conditionals
+syn keyword falconConditional and case default else end if iff
+syn keyword falconConditional elif or not switch select
 syn match   falconConditional "end\s\if"
 
-" Loops.
-syn keyword falconRepeat loop while for
-syn keyword falconRepeat forlast formiddle forfirst
+" Loops
+syn keyword falconRepeat break for loop forfirst forlast formiddle while
 
 " Booleans
-syn keyword falconBool true false nil
+syn keyword falconBool true false
 
-" Comments.
+" Constants
+syn keyword falconConst PI E nil
+
+" Comments
 syn match falconCommentSkip contained "^\s*\*\($\|\s\+\)"
-syn region falconComment start="/\*" end="\*/" contains=@falconCommentGroup,falconSpaceError, falconTodo
-syn region falconCommentL start="//" end="$" keepend contains=@falconCommentGroup,falconSpaceError, falconTodo
+syn region falconComment start="/\*" end="\*/" contains=@falconCommentGroup,falconSpaceError,falconTodo
+syn region falconCommentL start="//" end="$" keepend contains=@falconCommentGroup,falconSpaceError,falconTodo
 syn match falconSharpBang "\%^#!.*" display
-
 syn sync ccomment falconComment
 
-" Literals.
-syn match falconNumbers transparent "\<[+-]\=\d\|[+-]\=\.\d" contains=falconIntLiteral,falconFloatLiteral
-syn match falconNumbersCom contained transparent "\<[+-]\=\d\|[+-]\=\.\d" contains=falconIntLiteral,falconFloatLiteral
-syn match falconIntLiteral contained "[+-]\=\d\+"
+" Numbers
+syn match falconNumbers transparent "\<[+-]\=\d\|[+-]\=\.\d" contains=falconIntLiteral,falconFloatLiteral,falconHexadecimal,falconOctal
+syn match falconNumbersCom contained transparent "\<[+-]\=\d\|[+-]\=\.\d" contains=falconIntLiteral,falconFloatLiteral,falconHexadecimal,falconOctal
+syn match falconHexadecimal contained "\<0x\x\+\>"
+syn match falconOctal contained "\<0\o\+\>"
+syn match falconIntLiteral contained "[+-]\<d\+\(\d\+\)\?\>"
 syn match falconFloatLiteral contained "[+-]\=\d\+\.\d*"
 syn match falconFloatLiteral contained "[+-]\=\d*\.\d*"
 
 " Includes
-syn keyword falconInclude load
+syn keyword falconInclude load import
 
 " Expression Substitution and Backslash Notation
 syn match falconStringEscape "\\\\\|\\[abefnrstv]\|\\\o\{1,3}\|\\x\x\{1,2}" contained display
 syn match falconStringEscape "\%(\\M-\\C-\|\\C-\\M-\|\\M-\\c\|\\c\\M-\|\\c\|\\C-\|\\M-\)\%(\\\o\{1,3}\|\\x\x\{1,2}\|\\\=\S\)" contained display
-
 syn region falconSymbol start="[]})\"':]\@<!:\"" end="\"" skip="\\\\\|\\\"" contains=falconStringEscape fold
 
 " Normal String and Shell Command Output
@@ -123,43 +119,38 @@ syn region falconString start=+\%(\%(class\s*\|\%([]}).]\|::\)\)\_s*\|\w\)\@<!<<
 " Syntax Synchronizing
 syn sync minlines=10 maxlines=100
 
-" Define the default highlighting.
-if version >= 600 || !exists("did_falcon_syn_inits")
-  if version < 600
-    let did_falcon_syn_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
+" Define the default highlighting
+if !exists("did_falcon_syn_inits")
     command -nargs=+ HiLink hi def link <args>
-  endif
-
-  HiLink falconKeyword          Keyword
-  HiLink falconCommentString    String
-  HiLink falconTodo             Todo
-  HiLink falconConditional      Keyword
-  HiLink falconRepeat           Repeat
-  HiLink falconcommentSkip      Comment
-  HiLink falconComment          Comment
-  HiLink falconCommentL         Comment
-  HiLink falconOperator         Operator
-  HiLink falconSymbol           Normal
-  HiLink falconSpaceError       Error
-  HiLink falconIntLiteral       Number
-  HiLink falconFloatLiteral     Number
-  HiLink falconStringEscape     Special
-  HiLink falconStringDelimiter  Delimiter
-  HiLink falconString           String
-  HiLink falconBool             Constant
-  HiLink falconSharpBang        PreProc
-  HiLink falconInclude          Include
-  HiLink falconSymbol           Constant
-  HiLink falconSymbolOther      Delimiter
-
-  delcommand HiLink
+    
+    HiLink falconKeyword          Keyword
+    HiLink falconCommentString    String
+    HiLink falconTodo             Todo
+    HiLink falconConditional      Keyword
+    HiLink falconRepeat           Repeat
+    HiLink falconcommentSkip      Comment
+    HiLink falconComment          Comment
+    HiLink falconCommentL         Comment
+    HiLink falconConst            Constant
+    HiLink falconOperator         Operator
+    HiLink falconSymbol           Normal
+    HiLink falconSpaceError       Error
+    HiLink falconHexadecimal      Number
+    HiLink falconOctal            Number
+    HiLink falconIntLiteral       Number
+    HiLink falconFloatLiteral     Float
+    HiLink falconStringEscape     Special
+    HiLink falconStringDelimiter  Delimiter
+    HiLink falconString           String
+    HiLink falconBool             Constant
+    HiLink falconSharpBang        PreProc
+    HiLink falconInclude          Include
+    HiLink falconSymbol           Constant
+    HiLink falconSymbolOther      Delimiter
+    delcommand HiLink
 endif
 
 let b:current_syntax = "falcon"
 
-"---------------------------------------------
 " vim: set sw=4 sts=4 et tw=80 :
-"
 
